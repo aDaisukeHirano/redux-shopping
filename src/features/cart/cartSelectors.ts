@@ -15,3 +15,17 @@ export const selectCartTotalPrice = createSelector([selectCart], (cart) =>
     return total + product.price * item.quantity;
   }, 0)
 );
+
+export const selectCartSortedItems = createSelector([selectCart], (cart) =>
+  cart.items
+    .toSorted((a, b) => a.id - b.id)
+    .map((item) => {
+      const product = products.find((p) => p.id === item.id);
+      if (!product) throw new Error("Product not found");
+      return {
+        ...item,
+        name: product.name,
+        price: product.price,
+      };
+    })
+);
