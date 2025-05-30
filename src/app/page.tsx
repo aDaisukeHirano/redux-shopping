@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Product, products } from "@/data";
 import { addItem } from "@/features/cart/cartSlice";
+import { selectCartItemCount } from "@/features/cart/cartSelectors";
 import { useSelector } from "@/store/store";
 import { Minus, Plus } from "lucide-react";
 import Link from "next/link";
@@ -11,11 +12,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 export default function ProductListPage() {
-  const cart = useSelector((state) => state.cart);
-  const cartItemCount = cart.items.reduce(
-    (total, item) => total + item.quantity,
-    0
-  );
+  const cartItemCount = useSelector(selectCartItemCount);
   return (
     <div>
       <h1>商品リスト</h1>

@@ -7,21 +7,16 @@ import {
   decrementQuantity,
   incrementQuantity,
 } from "@/features/cart/cartSlice";
+import { selectCartTotalPrice } from "@/features/cart/cartSelectors";
 import { useSelector } from "@/store/store";
 import { Minus, Plus } from "lucide-react";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 
 const Page = () => {
+  const sum = useSelector(selectCartTotalPrice);
   const cart = useSelector((state) => state.cart);
-  console.log(cart);
-  const sum = cart.items.reduce((total, item) => {
-    const product = products.find((p) => p.id === item.id);
-    if (!product) {
-      throw new Error("Product not found");
-    }
-    return total + product.price * item.quantity;
-  }, 0);
+
   const sortedItems = cart.items
     .toSorted((a, b) => a.id - b.id)
     .map((item) => {
