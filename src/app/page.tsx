@@ -47,7 +47,9 @@ const ProductCard = ({ product }: { product: Product }) => {
           <Plus />
         </Button>
       </div>
-      <Button onClick={handleClick}>カートに入れる</Button>
+      <Button onClick={handleClick} disabled={count <= 0}>
+        カートに入れる
+      </Button>
     </Card>
   );
 };
